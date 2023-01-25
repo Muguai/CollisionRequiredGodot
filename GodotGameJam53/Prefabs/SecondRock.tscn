@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhghgk785ids5"]
+
+[ext_resource type="PackedScene" uid="uid://bxa4sdu4t27w1" path="res://Prefabs/FirstRock.tscn" id="1_4en8a"]
+[ext_resource type="Texture2D" uid="uid://ftka5xq5sl8d" path="res://Art/arr32px089-512-2967119538.png" id="2_8cj7v"]
+[ext_resource type="Shader" path="res://Prefabs/Outline.gdshader" id="2_fhfeq"]
+[ext_resource type="Script" path="res://Scripts/OutlineStart.cs" id="4_4rr7y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwpn5"]
+resource_local_to_scene = true
+shader = ExtResource("2_fhfeq")
+shader_parameter/Smooth = true
+shader_parameter/width = 100.0
+shader_parameter/outline_color = Color(0.784314, 0.337255, 0, 1)
+shader_parameter/pixel_size = 10
+shader_parameter/width_speed = 4.0
+
+[node name="SecondRock" instance=ExtResource("1_4en8a")]
+
+[node name="W" parent="." index="5"]
+visible = false
+text = "a
+"
+
+[node name="S" parent="." index="6"]
+visible = false
+text = "V"
+
+[node name="D" parent="." index="7"]
+visible = false
+text = "Right"
+
+[node name="A" parent="." index="8"]
+visible = false
+text = "<-
+"
+
+[node name="ui_left" type="Sprite2D" parent="." index="9"]
+material = SubResource("ShaderMaterial_gwpn5")
+position = Vector2(-375, 0)
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("2_8cj7v")
+script = ExtResource("4_4rr7y")
+
+[node name="ui_right" type="Sprite2D" parent="." index="10"]
+material = SubResource("ShaderMaterial_gwpn5")
+position = Vector2(375, 0)
+rotation = -3.14159
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8cj7v")
+script = ExtResource("4_4rr7y")
+
+[node name="ui_up" type="Sprite2D" parent="." index="11"]
+material = SubResource("ShaderMaterial_gwpn5")
+position = Vector2(0, -375)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8cj7v")
+script = ExtResource("4_4rr7y")
+
+[node name="ui_down" type="Sprite2D" parent="." index="12"]
+material = SubResource("ShaderMaterial_gwpn5")
+position = Vector2(0, 375)
+rotation = -1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8cj7v")
+script = ExtResource("4_4rr7y")

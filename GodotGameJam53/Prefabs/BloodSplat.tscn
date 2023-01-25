@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckf72yeaih7p3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4vga6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_angiq"]
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_4vga6")
+emitting = false
+amount = 32
+texture = SubResource("CanvasTexture_angiq")
+one_shot = true
+explosiveness = 1.0
+visibility_rect = Rect2(-100, -100, 1000, 1000)

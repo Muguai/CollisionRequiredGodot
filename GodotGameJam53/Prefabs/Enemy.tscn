@@ -1,0 +1,389 @@
+[gd_scene load_steps=20 format=3 uid="uid://de8368dbma0qg"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_c483b"]
+[ext_resource type="Texture2D" uid="uid://j0y6io3pshh5" path="res://Art/Dwarf/DwarfIdle.png" id="2_01w0n"]
+[ext_resource type="Texture2D" uid="uid://bgtyl14ltl86s" path="res://Art/Dwarf/DwarfAttack.png" id="2_7nh5q"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/EnemyStateMachine.cs" id="3_ovvy7"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/EnemyWalk.cs" id="4_4574v"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/EnemyAttack.cs" id="5_vce4p"]
+[ext_resource type="Script" path="res://Scripts/EnemyHealth.cs" id="6_226qp"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/EnemyDeath.cs" id="6_fww3m"]
+[ext_resource type="AudioStream" uid="uid://bb1uxxmecr0u5" path="res://Audio/PickaxeHit.wav" id="8_5gw51"]
+[ext_resource type="Texture2D" uid="uid://c0mnx3wg0226m" path="res://Art/Dwarf/DwarfWalk1.png" id="8_npewt"]
+[ext_resource type="AudioStream" uid="uid://dm2mhbmph84xq" path="res://Audio/DwarfDeath.wav" id="8_po6ux"]
+[ext_resource type="Texture2D" uid="uid://dyo32u7hhbuwt" path="res://Art/Dwarf/DwarfWalk2.png" id="9_4v38c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_611xv"]
+size = Vector2(450, 550)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4d058"]
+size = Vector2(550, 650)
+
+[sub_resource type="Animation" id="Animation_sqfnv"]
+resource_name = "Attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_7nh5q")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.2001),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.404916, 0.404916]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4.49998, -3.49999), Vector2(29, 30)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.254818]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.8, 1.595), Vector2(1.8, 1.595)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer:stream")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_5gw51")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_87873"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_01w0n")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.57329, 1.39402), Vector2(1.499, 1.457), Vector2(1.57329, 1.39402)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4.49998, -3.49999), Vector2(4.49998, -3.49999)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:skew")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_22qhx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4.49998, -3.49999)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.57329, 1.39402)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_7nh5q")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer:stream")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_5gw51")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_g5t4c"]
+resource_name = "Walk"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_01w0n"), ExtResource("8_npewt"), ExtResource("2_01w0n"), ExtResource("9_4v38c"), ExtResource("2_01w0n")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.190866, 0.4, 0.6, 0.7, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4.49998, -3.49999), Vector2(4.49998, -3.49999), Vector2(4.5, -7), Vector2(4.5, -20), Vector2(4.49998, -3.49999), Vector2(4.49998, -3.49999), Vector2(4.5, -7), Vector2(4.5, -20), Vector2(4.49998, -3.49999)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.57329, 1.39402)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ej24x"]
+_data = {
+"Attack": SubResource("Animation_sqfnv"),
+"Idle": SubResource("Animation_87873"),
+"RESET": SubResource("Animation_22qhx"),
+"Walk": SubResource("Animation_g5t4c")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("anim") groups=["Enemy"]]
+script = ExtResource("1_c483b")
+anim = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.49998, -3.49999)
+scale = Vector2(1.57329, 1.39402)
+texture = ExtResource("2_7nh5q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_611xv")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_4d058")
+
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("_Enemy", "anim", "audioSteamPlayer")]
+script = ExtResource("3_ovvy7")
+_Enemy = NodePath("..")
+anim = NodePath("../AnimationPlayer")
+audioSteamPlayer = NodePath("../AudioStreamPlayer")
+
+[node name="States" type="Node" parent="EnemyStateMachine"]
+
+[node name="EnemyWalk" type="Node" parent="EnemyStateMachine/States"]
+script = ExtResource("4_4574v")
+
+[node name="EnemyAttack" type="Node" parent="EnemyStateMachine/States"]
+script = ExtResource("5_vce4p")
+pickaxeAudio = ExtResource("8_5gw51")
+
+[node name="EnemyDeath" type="Node" parent="EnemyStateMachine/States" node_paths=PackedStringArray("shape1", "shape2", "sprite")]
+script = ExtResource("6_fww3m")
+enemyDeathSound = ExtResource("8_po6ux")
+shape1 = NodePath("../../../CollisionShape2D")
+shape2 = NodePath("../../../Area2D/CollisionShape2D")
+sprite = NodePath("../../../Sprite2D")
+
+[node name="EnemyIdle" type="Node" parent="EnemyStateMachine/States"]
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("ESM")]
+script = ExtResource("6_226qp")
+ESM = NodePath("../EnemyStateMachine")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ej24x")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_5gw51")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D" to="EnemyStateMachine/States/EnemyWalk" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="EnemyStateMachine/States/EnemyAttack" method="_on_area_2d_body_exited"]

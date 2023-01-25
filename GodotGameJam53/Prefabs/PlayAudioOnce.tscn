@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1ad3c0b66r14"]
+
+[ext_resource type="Script" path="res://Scripts/PlayAudioOnce.cs" id="2_oi7a7"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+script = ExtResource("2_oi7a7")

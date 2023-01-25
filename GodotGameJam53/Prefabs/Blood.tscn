@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgrtm7n6fvf2"]
+
+[ext_resource type="Texture2D" uid="uid://rmvdew4gqtuv" path="res://Blood.png" id="1_ky0sh"]
+[ext_resource type="Script" path="res://Scripts/Blood.cs" id="2_77aid"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+emitting = false
+amount = 4
+lifetime = 3.0
+one_shot = true
+speed_scale = 7.31
+texture = ExtResource("1_ky0sh")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+linear_accel_min = -50.0
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+script = ExtResource("2_77aid")
