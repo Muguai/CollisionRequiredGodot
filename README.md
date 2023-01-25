@@ -4,7 +4,7 @@ My Commision for the Godot Wild Jam 63
 
 and my Attempt at learning Godot
 
-Not a 100% happy with this one. Cause of the time frame and the new engine i worked it some code is a bit sloppy. But overall I feel like i learned a ton during this jam.
+Not a 100% happy with this one. Cause of the time frame and the new engine i worked in, some code is a bit sloppy. But overall I feel like i learned a ton during this jam.
 
 The theme was Assembly required, In the game your playing as two sentient rocks that has to collide to be able to kill the enemy dwarfs that is trying to mine you.
 
